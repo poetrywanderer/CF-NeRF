@@ -32,6 +32,7 @@
 </head>
 
 <body>
+      	<div id="main">
 	<h1 lang="en">Conditional-Flow NeRF: Accurate 3D Modelling with Reliable Uncertainty Quantification</h1>
         <div id="project">
 		<div id="authors" lang="en">
@@ -63,6 +64,7 @@
 		      </span>
 		    </div>
                 </div>
+	</div>
 	</div>
 	
 	<section class=""section>
@@ -124,43 +126,86 @@
 		</div>
 	</section>
 	
-	<table align=center width=450px>
-		<center><h1>Paper and Supplementary Material</h1></center>
-		<tr>
-			<td><a href=""><img class="layered-paper-big" style="height:175px" src="./resources/paper.png"/></a></td>
-			<td><span style="font-size:14pt">J. Shen, et al.<br>
-				<b>Conditional-Flow NeRF: Accurate 3D Modelling with Reliable Uncertainty Quantification.</b>
-				<br>ArXiv.
-				<!-- (<a href="./resources/camera-ready.pdf">camera ready</a>)<br> -->
-				<span style="font-size:4pt"><a href=""><br></a>
-				</span>
-			</td>
-		</tr>
-	</table>
-	<br>
+	<h2><span lang="en">BibTex</span></h2>
+        <div class="alert" lang="en">
+            @inproceedings{pumarola2020d,<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;title={{D-NeRF: Neural Radiance Fields for Dynamic Scenes}},<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;author={Pumarola, Albert and Corona, Enric and Pons-Moll, Gerard and Moreno-Noguer, Francesc},<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;year={2020}<br>
+            }
+            
+        </div>
+        <h2><span lang="en">Publications</span></h2>
+        <div class="publications">
+<!--        <h3 class="conference"><span lang="en">2021</span></h3>-->
+        <ul class="publist">
+     
+          <li class="conference">
+            <div class="details">
+              <a href="https://arxiv.org/abs/2011.13961"><img src=
+              "../../images/2021/D-NeRF/thumbnail.png" height="194" width="131" alt=
+              "D-NeRF: Neural Radiance Fields for Dynamic Scene" id="3DPeople_arxiv" class="thumb"></a>
+              <ul class="pub">
+                <li class="pubtitle">D-NeRF: Neural Radiance Fields for Dynamic Scene</li>
+                  <li class="pubauthor">A. Pumarola, E. Corona, G. Pons-Moll, and F. Moreno-Noguer</li> 
+                <li class="pubbooktitle">Conference in Computer Vision and Pattern Recognition (CVPR), 2021.</li> 
+                <li>
+                 <div class="list_buttons">
+                    <a class="bibtexLink" href="https://arxiv.org/abs/2011.13961" target="_blank">PDF</a>
+                    <a class="bibtexLink" href="https://www.dropbox.com/s/0bf6fl0ye2vz3vr/data.zip?dl=0">Dataset</a>
+                    <a class="bibtexLink" href="https://github.com/albertpumarola/D-NeRF">Code</a>
+                    <a class="bibtexLink" onclick="return toggle('/publications/PumarolaDNeRF/abs',this)"><span lang="en">Abstract</span></a>
+                    <a class="bibtexLink" onclick="return toggle('/publications/PumarolaDNeRF/bib',this)">Bibtex</a>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div style="display: none;" class="abstractbox" id="/publications/PumarolaDNeRF/abs">
+              <p>Neural rendering techniques combining machine learning  with geometric reasoning have arisen as one of the most promising  approaches for  synthesizing novel views of a scene from a sparse set of images. 
+Among these, stands out the Neural radiance fields (NeRF), which trains a deep  network to map  5D input coordinates  (representing spatial location and viewing direction) into a volume density and view-dependent emitted radiance. However, despite achieving an unprecedented level of photorealism on the generated images, NeRF  is only applicable to static scenes, where the same spatial location can be queried from different images. 
+In this paper we introduce D-NeRF, a method that extends neural radiance fields to a dynamic domain, allowing to reconstruct and render novel images of objects under rigid and non-rigid motions from a \emph{single} camera moving around the scene. 
+For this purpose we consider time as an additional  input to the system, and split the learning process in two main stages: one that encodes the scene into a canonical space and another that maps this canonical representation into the deformed scene at a particular time. Both mappings are  simultaneously learned using fully-connected networks. Once the networks are trained, D-NeRF can render novel images, controlling both the camera view and the time variable, and thus, the object movement. We demonstrate the effectiveness of our approach on scenes with objects under rigid, articulated and non-rigid motions. Code, model weights and the dynamic scenes dataset will be released.</p>
+            </div>
+            <div style="display: none;" class="bibtex" id="/publications/PumarolaDNeRF/bib">
+              <pre>@inproceedings{pumarola2020d,
+  title={{D-NeRF: Neural Radiance Fields for Dynamic Scenes}},
+  author={Pumarola, Albert and Corona, Enric and Pons-Moll, Gerard and Moreno-Noguer, Francesc},
+  booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
+  year={2021}
+}</pre>
+            </div>
+          </li>
+        </ul>
+    
 
-	<table align=center width=600px>
-		<tr>
-			<td><span style="font-size:14pt"><center>
-				<a href="./resources/bibtex.txt">[Bibtex]</a>
-			</center></td>
-		</tr>
-	</table>
+        <div id="content">
+          <div lang="en">
+            <h2 id="model">Acknowledgments</h2>
+            <p>This work is supported in part by a Google Daydream Research award and by the Spanish government with the project HuMoUR TIN2017-90086-R, the ERA-Net Chistera project IPALM PCI2019-103386 and María de Maeztu Seal of Excellence MDM-2016-0656. Gerard Pons-Moll is funded by the Deutsche Forschungsgemeinschaft (DFG, German Research Foundation) - 409792180 (Emmy Noether Programme, project: Real Virtual Humans) </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>  
+      
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">
+  </script> 
+  <script>
+  window.jQuery || document.write('<script src="../../../jquery.js"><\/script>')
+  </script> 
+  <script type="text/javascript" src="../../../site.js">
+  </script> 
+  <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-	<hr>
-	<br>
-
-	<table align=center width=900px>
-		<tr>
-			<td width=400px>
-				<left>
-					<center><h1>Acknowledgements</h1></center>
-					This template was originally made by <a href="http://web.mit.edu/phillipi/">Phillip Isola</a> and <a href="http://richzhang.github.io/">Richard Zhang</a> for a <a href="http://richzhang.github.io/colorization/">colorful</a> ECCV project; the code can be found <a href="https://github.com/richzhang/webpage-template">here</a>.
-				</left>
-			</td>
-		</tr>
-	</table>
-
-<br>
+      ga('create', 'UA-90616851-1', 'auto');
+      ga('send', 'pageview');
+  </script>
 </body>
 </html>
+
