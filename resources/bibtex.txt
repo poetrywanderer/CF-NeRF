@@ -1,6 +1,6 @@
-@inproceedings{author20XXtitle,
-  title={Please cite me},
-  author={Author, First and Author, Second and Author, Third},
-  booktitle={Conference},
-  year={20XX}
+@misc{CF-NeRF,
+  author = {Shen, Jianxiong and Agudo, Antonio and Moreno-Noguer, Francesc and Ruiz, Adria},
+  title = {Conditional-Flow NeRF: Accurate 3D Modelling with Reliable Uncertainty Quantification},
+  publisher = {arXiv},
+  year = {2022},
 }
