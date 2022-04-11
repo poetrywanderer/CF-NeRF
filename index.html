@@ -138,7 +138,7 @@
 <body>
 	<br>
 	<center>
-		<span style="font-size:36px">Conditional-Flow NeRF: Accurate 3D Modelling with Reliable Uncertainty Quantification.</span>
+		<span style="font-size:36px">Conditional-Flow NeRF: <br> Accurate 3D Modelling with Reliable Uncertainty Quantification.</span>
 		<table align=center width=900px>
 			<table align=center width=900px>
 				<tr>
@@ -215,20 +215,23 @@
 			</tr>
 		</center>
 	</table>
-	<table align=center width=800px>
-		<tr>
-			<td align=center width=800px>
-				<center>
-					<td><img class="round" style="width:450px" src="./resources/pipeline.png"/></td>
-				</center>
-			</td>
-		</tr>
-	</table>
+	<center>
+		<table align=center width=800px>
+			<tr>
+				<td align=center width=500px>
+					<center>
+						<td><img class="round" style="width:500px" src="./resources/pipeline.png"/></td>
+					</center>
+				</td>
+			</tr>
+		</table>
+	</center>
+	
 	<table align=center width=850px>
 		<center>
 			<tr>
 				<td>
-					\textbf{Illustration of our pipeline for the inference and computation of the log-likelihood on the pixel color.} (a) We sample a set of variables $\textbf{z}$ from the global latent distribution. (b) Given each spatial location $\mathbf{x}$ along a camera ray with viewing direction $\mathbf{d}$, we can generate a set of density and radiance values by passing each $\textbf{z}$ variable through our proposed CNF. (c) These values can be represented as a set of different density-radiance trajectories along the ray corresponding to each $\textbf{z}$, followed by volume rendering techniques to composite each trajectory into a RGB value. Finally, these RGB values are used to compute the log-likelihood for the pixel color and also estimate the model prediction and its associated uncertainty using their mean and variance during inference.
+					$\textbf{Illustration of our pipeline for the inference and computation of the log-likelihood on the pixel color.}$ (a) We sample a set of variables $\textbf{z}$ from the global latent distribution. (b) Given each spatial location $\mathbf{x}$ along a camera ray with viewing direction $\mathbf{d}$, we can generate a set of density and radiance values by passing each $\textbf{z}$ variable through our proposed CNF. (c) These values can be represented as a set of different density-radiance trajectories along the ray corresponding to each $\textbf{z}$, followed by volume rendering techniques to composite each trajectory into a RGB value. Finally, these RGB values are used to compute the log-likelihood for the pixel color and also estimate the model prediction and its associated uncertainty using their mean and variance during inference.
 				</td>
 			</tr>
 		</center>
