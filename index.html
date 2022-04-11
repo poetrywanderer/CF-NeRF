@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+
+<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+
 <html>
 <head lang="en">
     <meta charset="UTF-8">
@@ -89,7 +92,7 @@
 	<div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <h3> Abstract </h3>
-                <image style="width:80%" src="./resources/teaser.png" class="img-responsive; center" alt="overview"><br>
+                <center><image style="width:80%" src="./resources/teaser.png" class="img-responsive" alt="overview"></center><br>
                 <p class="text-justify">
 			We propose Conditional-Flow NeRF (CF-NeRF), a novel probabilistic framework to incorporate uncertainty quantification into NeRF-based approaches.
 			We learn an adaptive distribution over all possible radiance fields modelling able to quantify both 2D and 3D uncertainty associated with the modelled scene.
@@ -100,7 +103,7 @@
 	<div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <h3> Methodology </h3>
-                <image style="width:100%" src="./resources/pipeline.png" class="img-responsive; center" alt="overview"><br>
+                <center><image style="width:100%" src="./resources/pipeline.png" class="img-responsive" alt="overview"></center><br>
                 <p class="text-justify">
 			<b>Illustration of our pipeline for the inference and computation of the log-likelihood on the pixel color.</b> 
 			(a) We sample a set of variables <b>z</b> from the global latent distribution. 
