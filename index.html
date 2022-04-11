@@ -90,6 +90,9 @@
                 </div>
         </div>
 	
+	<h3> Visualization of the Learned Scene Representation </h3>
+	<model-viewer alt="Mesh" src="./resources/lego.glb" poster="./resources/snapshot00.png" style="width: 100%; height: 100%" exposure=".8" auto-rotate camera-controls ar-status="not-presenting"></model-viewer>
+    
 	<div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <h3> Abstract </h3>
@@ -112,13 +115,6 @@
 			(c) These values can be represented as a set of different density-radiance trajectories along the ray corresponding to each <b>z</b>, followed by volume rendering techniques to composite each trajectory into a RGB value. 
 			Finally, these RGB values are used to compute the log-likelihood for the pixel color and also estimate the model prediction and its associated uncertainty using their mean and variance during inference. 
 		</p>
-            </div>
-        </div>
-		
-	<div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <h3> Visualization of the Learned Scene Representation </h3>
-		<model-viewer alt="Mesh" src="./resources/lego.glb" poster="./resources/snapshot00.png" style="width: 100%; height: 100%" exposure=".8" auto-rotate camera-controls ar-status="not-presenting"></model-viewer>
             </div>
         </div>
 	
