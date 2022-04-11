@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-    <title>NeRV</title>
+    <title>Jianxiong Shen - CF-NeRF</title>
 
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -34,7 +34,7 @@
 <div class="container" id="main">
         <div class="row">
             <h1 class="col-md-12 text-center">
-                Conditional-Flow NeRF: Accurate 3D Modelling with Reliable Uncertainty Quantification </br>
+                Conditional-Flow NeRF: Accurate 3D Modelling with Reliable Uncertainty Quantification <br>
                 <small>
                     Arxiv
                 </small>
@@ -71,13 +71,13 @@
                 <div class="col-md-8 col-md-offset-2 text-center">
                     <ul class="nav nav-pills nav-justified">
                         <li>
-                            <a href="https://arxiv.org/abs/2012.03927">
+                            <a href="https://arxiv.org/abs/2203.10192">
                             <image src="./resources/paper.png" height="120px"><br>
                                 <h4><strong>Paper</strong></h4>
                             </a>
                         </li>
                         <li>
-                            <a href="">
+                            <a href="https://github.com/poetrywanderer/CF-NeRF">
                             <image src="./resources/github_pad.png" height="120px"><br>
                                 <h4><strong>Code</strong></h4>
                             </a>
@@ -88,10 +88,8 @@
 	
 	<div class="row">
             <div class="col-md-8 col-md-offset-2">
-                <h3>
-                    Abstract
-                </h3>
-                <image src="./resources/teaser.png" class="img-responsive" alt="overview"><br>
+                <h3> Abstract </h3>
+                <image style="width:80%" src="./resources/teaser.png" class="img-responsive" alt="overview"><br>
                 <p class="text-justify">
 			We propose Conditional-Flow NeRF (CF-NeRF), a novel probabilistic framework to incorporate uncertainty quantification into NeRF-based approaches.
 			We learn an adaptive distribution over all possible radiance fields modelling able to quantify both 2D and 3D uncertainty associated with the modelled scene.
@@ -101,10 +99,8 @@
 		
 	<div class="row">
             <div class="col-md-8 col-md-offset-2">
-                <h3>
-                    Methodology
-                </h3>
-                <image src="./resources/pipeline.png" class="img-responsive" alt="overview"><br>
+                <h3> Methodology </h3>
+                <image style="width:80%" src="./resources/pipeline.png" class="img-responsive" alt="overview"><br>
                 <p class="text-justify">
 			<b>Illustration of our pipeline for the inference and computation of the log-likelihood on the pixel color.</b> 
 			(a) We sample a set of variables <b>z</b> from the global latent distribution. 
@@ -117,15 +113,8 @@
 		
 	<div class="row">
             <div class="col-md-8 col-md-offset-2">
-                <h3>Visualization of the Learned Scene Representation</h3>
+                <h3> Visualization of the Learned Scene Representation </h3>
                 <div class="columns is-centered is-full-width">
-			<div class="column">
-				<div class="content">
-					<video id="reconstruction" autoplay="" controls="" muted="" loop="" height="100%">
-						<source src="" type="video/mp4">
-					</video>
-				</div>
-			</div>
 			<div class="column">
 				<div class="content">
 					<div class="video_class w-embed w-script"><model-viewer alt="Mesh" src="./resources/lego.glb" poster="./resources/snapshot00.png" style="width: 100%; height: 100%" exposure=".5" auto-rotate camera-controls ar-status="not-presenting"></model-viewer>
