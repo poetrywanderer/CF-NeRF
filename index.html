@@ -115,6 +115,19 @@
 		height: 1px;
 		background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
 	}
+	
+	.column {
+	  float: left;
+	  width: 50%;
+	  padding: 10px;
+	  height: 300px; /* Should be removed. Only for demonstration */
+	}
+
+	.row:after {
+	  content: "";
+	  display: table;
+	  clear: both;
+	}
 </style>
 
 <html>
@@ -240,6 +253,24 @@
 	<br>
 	
 	<center><h1>Visualization of the learned mesh with uncertainty</h1></center>
+	
+	<div class="row">
+	 	<div class="column" style="">
+	    		<h2>Volume density</h2>
+	  	</div>
+	  	<div class="column" style="">
+	    		<h2>Associated uncertainty</h2>
+			<table align=center width=500px>
+				<tr>
+					<td width=500px height=500px>
+						<center>
+							<model-viewer alt="Mesh" src="./resources/lego.glb" poster="./resources/snapshot00.png" shadow-intensity="1" auto-rotate camera-controls ar ar-modes="webxr scene-viewer quick-look"></model-viewer>
+						</center>
+					</td>
+				</tr>
+			</table>
+	  	</div>
+	</div>
 	
 	<center>
 		<table align=center width=850px>
