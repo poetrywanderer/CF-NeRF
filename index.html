@@ -138,7 +138,7 @@
 <body>
 	<br>
 	<center>
-		<span style="font-size:36px">Creative and Descriptive Paper Title</span>
+		<span style="font-size:36px">Conditional-Flow NeRF: Accurate 3D Modelling with Reliable Uncertainty Quantification.</span>
 		<table align=center width=600px>
 			<table align=center width=600px>
 				<tr>
@@ -168,12 +168,12 @@
 				<tr>
 					<td align=center width=120px>
 						<center>
-							<span style="font-size:24px"><a href=''>[Paper]</a></span>
+							<span style="font-size:24px"><a href='https://arxiv.org/abs/2203.10192'>[Paper]</a></span>
 						</center>
 					</td>
 					<td align=center width=120px>
 						<center>
-							<span style="font-size:24px"><a href='https://github.com/richzhang/webpage-template'>[GitHub]</a></span><br>
+							<span style="font-size:24px"><a href='https://github.com/poetrywanderer/CF-NeRF'>[GitHub]</a></span><br>
 						</center>
 					</td>
 				</tr>
@@ -191,13 +191,6 @@
 				</td>
 			</tr>
 		</table>
-		<table align=center width=850px>
-			<tr>
-				<td>
-					This was a template originally made for <a href="http://richzhang.github.io/colorization/">Colorful Image Colorization</a>. The code can be found in this <a href="https://github.com/richzhang/webpage-template">repository</a>.
-				</td>
-			</tr>
-		</table>
 	</center>
 
 	<hr>
@@ -206,7 +199,7 @@
 		<center><h1>Abstract</h1></center>
 		<tr>
 			<td>
-				This is my abstract.
+				A critical limitation of current methods based on Neural Radiance Fields (NeRF) is that they are unable to quantify the uncertainty associated with the learned appearance and geometry of the scene. This information is paramount in real applications such as medical diagnosis or autonomous driving where, to reduce potentially catastrophic failures, the confidence on the model outputs must be included into the decision-making process. In this context, we introduce Conditional-Flow NeRF (CF-NeRF), a novel probabilistic framework to incorporate uncertainty quantification into NeRF-based approaches. For this purpose, our method learns a distribution over all possible radiance fields modelling which is used to quantify the uncertainty associated with the modelled scene. In contrast to previous approaches enforcing strong constraints over the radiance field distribution, CF-NeRF learns it in a flexible and fully data-driven manner by coupling Latent Variable Modelling and Conditional Normalizing Flows. This strategy allows to obtain reliable uncertainty estimation while preserving model expressivity. Compared to previous state-of-the-art methods proposed for uncertainty quantification in NeRF, our experiments show that the proposed method achieves significantly lower prediction errors and more reliable uncertainty values for synthetic novel view and depth-map estimation.
 			</td>
 		</tr>
 	</table>
@@ -229,7 +222,7 @@
 	</table>
 	<hr>
 
-	<center><h1>Code</h1></center>
+	<center><h1>Methodology</h1></center>
 
 	<table align=center width=420px>
 		<center>
@@ -243,7 +236,7 @@
 		<tr>
 			<td align=center width=400px>
 				<center>
-					<td><img class="round" style="width:450px" src="./resources/method_diagram.png"/></td>
+					<td><img class="round" style="width:450px" src="./resources/pipeline.png"/></td>
 				</center>
 			</td>
 		</tr>
@@ -252,7 +245,7 @@
 		<center>
 			<tr>
 				<td>
-					Short description if wanted
+					Illustration of our pipeline for the inference and computation of the log-likelihood on the pixel color. (a) We sample a set of variables $\textbf{z}$ from the global latent distribution. (b) Given each spatial location $\mathbf{x}$ along a camera ray with viewing direction $\mathbf{d}$, we can generate a set of density and radiance values by passing each $\textbf{z}$ variable through our proposed CNF. (c) These values can be represented as a set of different density-radiance trajectories along the ray corresponding to each $\textbf{z}$, followed by volume rendering techniques to composite each trajectory into a RGB value. Finally, these RGB values are used to compute the log-likelihood for the pixel color and also estimate the model prediction and its associated uncertainty using their mean and variance during inference.
 				</td>
 			</tr>
 		</center>
@@ -260,7 +253,7 @@
 	<table align=center width=800px>
 		<br>
 		<tr><center>
-			<span style="font-size:28px">&nbsp;<a href='https://github.com/richzhang/webpage-template'>[GitHub]</a>
+			<span style="font-size:28px">&nbsp;<a href='https://github.com/poetrywanderer/CF-NeRF'>[GitHub]</a>
 			</center>
 		</span>
 	</table>
@@ -270,8 +263,8 @@
 		<center><h1>Paper and Supplementary Material</h1></center>
 		<tr>
 			<td><a href=""><img class="layered-paper-big" style="height:175px" src="./resources/paper.png"/></a></td>
-			<td><span style="font-size:14pt">F. Author, S. Author, T. Author.<br>
-				<b>Creative and Descriptive Paper Title.</b><br>
+			<td><span style="font-size:14pt">J. Shen, et al.<br>
+				<b>Conditional-Flow NeRF: Accurate 3D Modelling with Reliable Uncertainty Quantification.</b><br>
 				In Conference, 20XX.<br>
 				(hosted on <a href="">ArXiv</a>)<br>
 				<!-- (<a href="./resources/camera-ready.pdf">camera ready</a>)<br> -->
