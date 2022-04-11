@@ -12,6 +12,23 @@
 	}
 </style>
 
+<script src="//ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">
+  </script> 
+  <script>
+  window.jQuery || document.write('<script src="../../../jquery.js"><\/script>')
+  </script> 
+  <script type="text/javascript" src="../../../site.js">
+  </script> 
+  <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-90616851-1', 'auto');
+      ga('send', 'pageview');
+  </script>
+
 <html lang="en">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -42,186 +59,105 @@
 </head>
 
 <body>
-      	<div id="main">
-	<h1 lang="en">Conditional-Flow NeRF: Accurate 3D Modelling with Reliable Uncertainty Quantification</h1>
-        <div id="project">
-		<div id="authors" lang="en">
-		  <p> <a href="">Jianxiong Shen</a>,
-		      <a href="">Antonio Agudo</a>,
-		      <a href="http://www.iri.upc.edu/people/fmoreno/">Francesc Moreno-Noguer</a>,
-		      <a href="">Adria Ruiz</a>
-		  </p>
-		</div>
-		
-		<div class="column has-text-centered">
-		    <div class="publication-links">
-		      <!-- PDF Link. -->
-		      <span class="link-block">
-			<a href="https://arxiv.org/abs/2203.10192" class="external-link button is-normal is-rounded is-dark">
-			  <span class="icon">
-			      <svg class="svg-inline--fa fa-file-pdf fa-w-12" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="file-pdf" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" data-fa-i2svg=""><path fill="currentColor" d="M181.9 256.1c-5-16-4.9-46.9-2-46.9 8.4 0 7.6 36.9 2 46.9zm-1.7 47.2c-7.7 20.2-17.3 43.3-28.4 62.7 18.3-7 39-17.2 62.9-21.9-12.7-9.6-24.9-23.4-34.5-40.8zM86.1 428.1c0 .8 13.2-5.4 34.9-40.2-6.7 6.3-29.1 24.5-34.9 40.2zM248 160h136v328c0 13.3-10.7 24-24 24H24c-13.3 0-24-10.7-24-24V24C0 10.7 10.7 0 24 0h200v136c0 13.2 10.8 24 24 24zm-8 171.8c-20-12.2-33.3-29-42.7-53.8 4.5-18.5 11.6-46.6 6.2-64.2-4.7-29.4-42.4-26.5-47.8-6.8-5 18.3-.4 44.1 8.1 77-11.6 27.6-28.7 64.6-40.8 85.8-.1 0-.1.1-.2.1-27.1 13.9-73.6 44.5-54.5 68 5.6 6.9 16 10 21.5 10 17.9 0 35.7-18 61.1-61.8 25.8-8.5 54.1-19.1 79-23.2 21.7 11.8 47.1 19.5 64 19.5 29.2 0 31.2-32 19.7-43.4-13.9-13.6-54.3-9.7-73.6-7.2zM377 105L279 7c-4.5-4.5-10.6-7-17-7h-6v128h128v-6.1c0-6.3-2.5-12.4-7-16.9zm-74.1 255.3c4.1-2.7-2.5-11.9-42.8-9 37.1 15.8 42.8 9 42.8 9z"></path></svg><!-- <i class="fas fa-file-pdf"></i> Font Awesome fontawesome.com -->
-			  </span>
-			  <span>Paper</span>
-			</a>
-		      </span>
-		      <span class="link-block">
-			<a href="https://github.com/poetrywanderer/CF-NeRF" class="external-link button is-normal is-rounded is-dark">
-			  <span class="icon">
-			      <svg class="svg-inline--fa fa-github fa-w-16" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="github" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512" data-fa-i2svg=""><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg>
-			  </span>
-			  <span>Code</span>
-			  </a>
-		      </span>
-		    </div>
-                </div>
+<div id="main">
+<h1 lang="en">Conditional-Flow NeRF: Accurate 3D Modelling with Reliable Uncertainty Quantification</h1>
+<div id="project">
+	<div id="authors" lang="en">
+	  <p> <a href="">Jianxiong Shen</a>,
+	      <a href="">Antonio Agudo</a>,
+	      <a href="http://www.iri.upc.edu/people/fmoreno/">Francesc Moreno-Noguer</a>,
+	      <a href="">Adria Ruiz</a>
+	  </p>
 	</div>
+
+	<div class="column has-text-centered">
+	    <div class="publication-links">
+	      <!-- PDF Link. -->
+	      <span class="link-block">
+		<a href="https://arxiv.org/abs/2203.10192" class="external-link button is-normal is-rounded is-dark">
+		  <span class="icon">
+		      <svg class="svg-inline--fa fa-file-pdf fa-w-12" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="file-pdf" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" data-fa-i2svg=""><path fill="currentColor" d="M181.9 256.1c-5-16-4.9-46.9-2-46.9 8.4 0 7.6 36.9 2 46.9zm-1.7 47.2c-7.7 20.2-17.3 43.3-28.4 62.7 18.3-7 39-17.2 62.9-21.9-12.7-9.6-24.9-23.4-34.5-40.8zM86.1 428.1c0 .8 13.2-5.4 34.9-40.2-6.7 6.3-29.1 24.5-34.9 40.2zM248 160h136v328c0 13.3-10.7 24-24 24H24c-13.3 0-24-10.7-24-24V24C0 10.7 10.7 0 24 0h200v136c0 13.2 10.8 24 24 24zm-8 171.8c-20-12.2-33.3-29-42.7-53.8 4.5-18.5 11.6-46.6 6.2-64.2-4.7-29.4-42.4-26.5-47.8-6.8-5 18.3-.4 44.1 8.1 77-11.6 27.6-28.7 64.6-40.8 85.8-.1 0-.1.1-.2.1-27.1 13.9-73.6 44.5-54.5 68 5.6 6.9 16 10 21.5 10 17.9 0 35.7-18 61.1-61.8 25.8-8.5 54.1-19.1 79-23.2 21.7 11.8 47.1 19.5 64 19.5 29.2 0 31.2-32 19.7-43.4-13.9-13.6-54.3-9.7-73.6-7.2zM377 105L279 7c-4.5-4.5-10.6-7-17-7h-6v128h128v-6.1c0-6.3-2.5-12.4-7-16.9zm-74.1 255.3c4.1-2.7-2.5-11.9-42.8-9 37.1 15.8 42.8 9 42.8 9z"></path></svg><!-- <i class="fas fa-file-pdf"></i> Font Awesome fontawesome.com -->
+		  </span>
+		  <span>Paper</span>
+		</a>
+	      </span>
+	      <span class="link-block">
+		<a href="https://github.com/poetrywanderer/CF-NeRF" class="external-link button is-normal is-rounded is-dark">
+		  <span class="icon">
+		      <svg class="svg-inline--fa fa-github fa-w-16" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="github" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512" data-fa-i2svg=""><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg>
+		  </span>
+		  <span>Code</span>
+		  </a>
+	      </span>
+	    </div>
 	</div>
-	
-	<section class=""section>
-		<div class="content">
-		    	<img class="round" style="width:80%" src="./resources/teaser.png"/>
-		</div>
-		<div class="abstract" lang="en">
-			<p> 
-				We propose Conditional-Flow NeRF (CF-NeRF), a novel probabilistic framework to incorporate uncertainty quantification into NeRF-based approaches.
-				We learn an adaptive distribution over all possible radiance fields modelling able to quantify both 2D and 3D uncertainty associated with the modelled scene.
-			</p>
-		</div>
-	</section>
-	
-	<section class="section">      
-	  	<div class="container">
-			<center><h2 class="title is-2 has-text-centered">Methodology</h2></center>
-		    	<div class="columns is-centered is-full-width">
+</div>
+</div>
 
-			      <div class="column">
-				<div class="content">
-					<center><img src="./resources/pipeline.png" alt="model"> </center>
-				</div>
-				   <p> <b>Illustration of our pipeline for the inference and computation of the log-likelihood on the pixel color.</b> 
-					<br>(a) We sample a set of variables <b>z</b> from the global latent distribution. 
-					<br>(b) Given each spatial location <b>x</b> along a camera ray with viewing direction <b>d</b>, we can generate a set of density and radiance values by passing each <b>z</b> variable through our proposed CNF. 
-					<br>(c) These values can be represented as a set of different density-radiance trajectories along the ray corresponding to each <b>z</b>, followed by volume rendering techniques to composite each trajectory into a RGB value. 
-					<br>Finally, these RGB values are used to compute the log-likelihood for the pixel color and also estimate the model prediction and its associated uncertainty using their mean and variance during inference. 
-				   </p>
-			      </div>
+<section class=""section>
+	<div class="content">
+		<img class="round" style="width:80%" src="./resources/teaser.png"/>
+	</div>
+	<div class="abstract" lang="en">
+		<p> 
+			We propose Conditional-Flow NeRF (CF-NeRF), a novel probabilistic framework to incorporate uncertainty quantification into NeRF-based approaches.
+			We learn an adaptive distribution over all possible radiance fields modelling able to quantify both 2D and 3D uncertainty associated with the modelled scene.
+		</p>
+	</div>
+</section>
 
+<section class="section">      
+	<div class="container">
+		<center><h2 class="title is-2 has-text-centered">Methodology</h2></center>
+		<div class="columns is-centered is-full-width">
+
+		      <div class="column">
+			<div class="content">
+				<center><img src="./resources/pipeline.png" alt="model"> </center>
 			</div>
-	     	</div>
-	</section>  
-	
-	<section class="section">      
-  		<div class="container">
-			<center><h2 class="title is-2 has-text-centered">Visualization of the Learned Scene Representation</h2></center>
-			<div class="columns is-centered is-full-width">
-				<div class="column">
-					<div class="content">
-						<video id="reconstruction" autoplay="" controls="" muted="" loop="" height="100%">
-							<source src="" type="video/mp4">
-						</video>
-					</div>
-			      	</div>
-				<div class="column">
-				  	<div class="content">
-						<div class="video_class w-embed w-script"><model-viewer alt="Mesh" src="./resources/lego.glb" poster="./resources/snapshot00.png" style="width: 100%; height: 100%" exposure=".5" auto-rotate camera-controls ar-status="not-presenting"></model-viewer>
-						<div class="container" style="width: 0px; height: 0px;">
-			  			<div class="userInput" tabindex="0" role="img" aria-label="Use mouse, touch or arrow keys to control the camera!" aria-live="polite" style="cursor: grab;">
-			    				<canvas width="1" height="1" style="width: 1px; height: 1px;"></canvas>
-			  				<canvas id="webgl-canvas" width="1" height="1" class="show" style="width: 1px; height: 1px;"></canvas>
-							<!-- Loads <model-viewer> for modern browsers: -->
-							<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.js">
-							</script>
-							<!-- Loads <model-viewer> for old browsers like IE11: -->
-							<script nomodule="" src="https://unpkg.com/@google/model-viewer/dist/model-viewer-legacy.js">
-							</script>
-						</div>
+			   <p> <b>Illustration of our pipeline for the inference and computation of the log-likelihood on the pixel color.</b> 
+				<br>(a) We sample a set of variables <b>z</b> from the global latent distribution. 
+				<br>(b) Given each spatial location <b>x</b> along a camera ray with viewing direction <b>d</b>, we can generate a set of density and radiance values by passing each <b>z</b> variable through our proposed CNF. 
+				<br>(c) These values can be represented as a set of different density-radiance trajectories along the ray corresponding to each <b>z</b>, followed by volume rendering techniques to composite each trajectory into a RGB value. 
+				<br>Finally, these RGB values are used to compute the log-likelihood for the pixel color and also estimate the model prediction and its associated uncertainty using their mean and variance during inference. 
+			   </p>
+		      </div>
+
+		</div>
+	</div>
+</section>  
+
+<section class="section">      
+	<div class="container">
+		<center><h2 class="title is-2 has-text-centered">Visualization of the Learned Scene Representation</h2></center>
+		<div class="columns is-centered is-full-width">
+			<div class="column">
+				<div class="content">
+					<video id="reconstruction" autoplay="" controls="" muted="" loop="" height="100%">
+						<source src="" type="video/mp4">
+					</video>
+				</div>
+			</div>
+			<div class="column">
+				<div class="content">
+					<div class="video_class w-embed w-script"><model-viewer alt="Mesh" src="./resources/lego.glb" poster="./resources/snapshot00.png" style="width: 100%; height: 100%" exposure=".5" auto-rotate camera-controls ar-status="not-presenting"></model-viewer>
+					<div class="container" style="width: 0px; height: 0px;">
+					<div class="userInput" tabindex="0" role="img" aria-label="Use mouse, touch or arrow keys to control the camera!" aria-live="polite" style="cursor: grab;">
+						<canvas width="1" height="1" style="width: 1px; height: 1px;"></canvas>
+						<canvas id="webgl-canvas" width="1" height="1" class="show" style="width: 1px; height: 1px;"></canvas>
+						<!-- Loads <model-viewer> for modern browsers: -->
+						<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.js">
+						</script>
+						<!-- Loads <model-viewer> for old browsers like IE11: -->
+						<script nomodule="" src="https://unpkg.com/@google/model-viewer/dist/model-viewer-legacy.js">
+						</script>
 					</div>
 				</div>
+			</div>
 
-        		</div>
 		</div>
-	</section>
-	
-	<h2><span lang="en">BibTex</span></h2>
-        <div class="alert" lang="en">
-            @inproceedings{pumarola2020d,<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;title={{D-NeRF: Neural Radiance Fields for Dynamic Scenes}},<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;author={Pumarola, Albert and Corona, Enric and Pons-Moll, Gerard and Moreno-Noguer, Francesc},<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;year={2020}<br>
-            }
-            
-        </div>
-        <h2><span lang="en">Publications</span></h2>
-        <div class="publications">
-<!--        <h3 class="conference"><span lang="en">2021</span></h3>-->
-        <ul class="publist">
-     
-          <li class="conference">
-            <div class="details">
-              <a href="https://arxiv.org/abs/2011.13961"><img src=
-              "../../images/2021/D-NeRF/thumbnail.png" height="194" width="131" alt=
-              "D-NeRF: Neural Radiance Fields for Dynamic Scene" id="3DPeople_arxiv" class="thumb"></a>
-              <ul class="pub">
-                <li class="pubtitle">D-NeRF: Neural Radiance Fields for Dynamic Scene</li>
-                  <li class="pubauthor">A. Pumarola, E. Corona, G. Pons-Moll, and F. Moreno-Noguer</li> 
-                <li class="pubbooktitle">Conference in Computer Vision and Pattern Recognition (CVPR), 2021.</li> 
-                <li>
-                 <div class="list_buttons">
-                    <a class="bibtexLink" href="https://arxiv.org/abs/2011.13961" target="_blank">PDF</a>
-                    <a class="bibtexLink" href="https://www.dropbox.com/s/0bf6fl0ye2vz3vr/data.zip?dl=0">Dataset</a>
-                    <a class="bibtexLink" href="https://github.com/albertpumarola/D-NeRF">Code</a>
-                    <a class="bibtexLink" onclick="return toggle('/publications/PumarolaDNeRF/abs',this)"><span lang="en">Abstract</span></a>
-                    <a class="bibtexLink" onclick="return toggle('/publications/PumarolaDNeRF/bib',this)">Bibtex</a>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div style="display: none;" class="abstractbox" id="/publications/PumarolaDNeRF/abs">
-              <p>Neural rendering techniques combining machine learning  with geometric reasoning have arisen as one of the most promising  approaches for  synthesizing novel views of a scene from a sparse set of images. 
-Among these, stands out the Neural radiance fields (NeRF), which trains a deep  network to map  5D input coordinates  (representing spatial location and viewing direction) into a volume density and view-dependent emitted radiance. However, despite achieving an unprecedented level of photorealism on the generated images, NeRF  is only applicable to static scenes, where the same spatial location can be queried from different images. 
-In this paper we introduce D-NeRF, a method that extends neural radiance fields to a dynamic domain, allowing to reconstruct and render novel images of objects under rigid and non-rigid motions from a \emph{single} camera moving around the scene. 
-For this purpose we consider time as an additional  input to the system, and split the learning process in two main stages: one that encodes the scene into a canonical space and another that maps this canonical representation into the deformed scene at a particular time. Both mappings are  simultaneously learned using fully-connected networks. Once the networks are trained, D-NeRF can render novel images, controlling both the camera view and the time variable, and thus, the object movement. We demonstrate the effectiveness of our approach on scenes with objects under rigid, articulated and non-rigid motions. Code, model weights and the dynamic scenes dataset will be released.</p>
-            </div>
-            <div style="display: none;" class="bibtex" id="/publications/PumarolaDNeRF/bib">
-              <pre>@inproceedings{pumarola2020d,
-  title={{D-NeRF: Neural Radiance Fields for Dynamic Scenes}},
-  author={Pumarola, Albert and Corona, Enric and Pons-Moll, Gerard and Moreno-Noguer, Francesc},
-  booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
-  year={2021}
-}</pre>
-            </div>
-          </li>
-        </ul>
-    
-
-        <div id="content">
-          <div lang="en">
-            <h2 id="model">Acknowledgments</h2>
-            <p>This work is supported in part by a Google Daydream Research award and by the Spanish government with the project HuMoUR TIN2017-90086-R, the ERA-Net Chistera project IPALM PCI2019-103386 and María de Maeztu Seal of Excellence MDM-2016-0656. Gerard Pons-Moll is funded by the Deutsche Forschungsgemeinschaft (DFG, German Research Foundation) - 409792180 (Emmy Noether Programme, project: Real Virtual Humans) </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  </div>  
-      
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">
-  </script> 
-  <script>
-  window.jQuery || document.write('<script src="../../../jquery.js"><\/script>')
-  </script> 
-  <script type="text/javascript" src="../../../site.js">
-  </script> 
-  <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-      ga('create', 'UA-90616851-1', 'auto');
-      ga('send', 'pageview');
-  </script>
+	</div>
+</section>
 </body>
 </html>
 
