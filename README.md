@@ -1,3 +1,3 @@
 # CF-NeRF
 
-Coming soon
+Website: https://poetrywanderer.github.io/CF-NeRF/
