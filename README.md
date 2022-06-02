@@ -1,3 +1,4 @@
 # CF-NeRF
 
-project like: https://poetrywanderer.github.io/CF-NeRF/
+Project Link: https://poetrywanderer.github.io/CF-NeRF/ 
+Stay tuned!
