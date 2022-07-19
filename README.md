@@ -59,7 +59,7 @@ To play with other scenes, place your data according to the following directory 
 |   |   └── ...
 ```
 
-## Training
+## Training and Testing
 
 To train CF-NeRF on different datasets:
 
