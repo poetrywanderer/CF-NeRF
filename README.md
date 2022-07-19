@@ -2,9 +2,9 @@
 
 ### [Project Page](https://poetrywanderer.github.io/CF-NeRF/) | [Paper](https://arxiv.org/abs/2203.10192)
 
-<img src="https://github.com/poetrywanderer/CF-NeRF/blob/main/image/teaser2.png?raw=true" alt="teaser" width='100%'>
-
 This repository contains the code release for our ECCV paper: Conditional-Flow NeRF: Accurate 3D Modelling with Reliable Uncertainty Quantification. This implementation is written in Pytorch. 
+
+<img src="https://github.com/poetrywanderer/CF-NeRF/blob/main/image/teaser2.png?raw=true" alt="teaser" width='100%'>
 
 ## Abstract
 
