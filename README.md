@@ -55,7 +55,7 @@ To play with other scenes, place your data according to the following directory 
 │   │   └── flower  # downloaded llff dataset                                                                                   
 |   |   └── ...
 │   ├── lf_data  
-│   │   └── basket   # downloaded llff dataset
+│   │   └── basket   # downloaded lf dataset
 |   |   └── ...
 ```
 
