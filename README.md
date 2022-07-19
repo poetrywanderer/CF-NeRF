@@ -89,3 +89,7 @@ Please cite as:
     primaryClass={cs.CV}
 }
 ```
+
+## Acknowledgement
+
+This inplementation is based on https://github.com/yenchenlin/nerf-pytorch
