@@ -15,9 +15,10 @@ A critical limitation of current methods based on Neural Radiance Fields (NeRF) 
 We recommend using Anaconda to set up the environment. Run the following commands:
 
 ```
+conda env create -f environment.yaml
+conda activate cf_nerf
 git clone https://github.com/poetrywanderer/CF-NeRF.git
 cd CF-NeRF
-pip install -r requirements.txt
 ```
 
 <details>
@@ -30,6 +31,7 @@ pip install -r requirements.txt
   - imageio
   - imageio-ffmpeg
   - configargparse
+  - ...
   
 The LLFF data loader requires ImageMagick.
 
@@ -39,10 +41,10 @@ You will also need the [LLFF code](http://github.com/fyusion/llff) (and COLMAP) 
 
 ## Data
 
-Download the LLFF datasets from the NeRF official Google Drive, the LF datasets. 
+Download the [LF datasets](https://drive.google.com/file/d/1gsjDjkbTh4GAR9fFqlIDZ__qR9NYTURQ/view) and [LLFF datasets](https://drive.google.com/drive/folders/14boI-o5hGO9srnWaaogTU5_ji7wkX2S7).
 
 ### Your Own data
-To play with other scenes, place your own data according to the following directory structure:
+To play with other scenes, place your data according to the following directory structure:
 ```
 ├── configs                                                                                                       
 │   ├── ...                                                                                     
