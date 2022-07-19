@@ -17,4 +17,4 @@ python run_nerf_uncertainty_NF.py \
             --netwidth 512 \
             --model 'NeRF_Flows' \
             --index_step -1 \
-            --is_train \
+            # --is_train \

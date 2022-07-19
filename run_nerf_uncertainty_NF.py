@@ -416,60 +416,6 @@ def create_nerf(args):
 
     return render_kwargs_train, render_kwargs_test, start, grad_vars, optimizer
 
-
-def raw2outputs1(raw, z_vals, rays_d, raw_noise_std=0, white_bkgd=False, pytest=False):
-    """Transforms model's predictions to semantically meaningful values.
-    Args:
-        raw: [num_rays, num_samples along ray, 8]. Prediction from model.
-        z_vals: [num_rays, num_samples along ray]. Integration time.
-        rays_d: [num_rays, 3]. Direction of each ray.
-    Returns:
-        rgb_map: [num_rays, 3]. Estimated RGB color of a ray.
-        disp_map: [num_rays]. Disparity map. Inverse of depth map.
-        acc_map: [num_rays]. Sum of weights along each ray.
-        weights: [num_rays, num_samples]. Weights assigned to each sampled color.
-        depth_map: [num_rays]. Estimated distance to object.
-    """
-    
-    dists = z_vals[...,1:] - z_vals[...,:-1]
-    # dists = torch.cat([dists, torch.Tensor([1e10]).expand(dists[...,:1].shape)], -1)  # [N_rays, N_samples]
-    dists = torch.cat([z_vals[...,0:1], dists], -1)  # [N_rays, N_samples]
-    dists = dists * torch.norm(rays_d[...,None,:], dim=-1)
-
-    alpha = torch.relu(raw[...,3]) # [N_rays, N_samples, k3]
-    # alpha = F.softplus(raw[...,3]) # [N_rays, N_samples, k3]
-    k3 = alpha.shape[-1]
-
-    ## use sigmoid as activation for sampled rgb output
-    rgb = torch.sigmoid(raw[...,:3]).transpose(-2,-1)  # [N_rays, N_samples, 3, k3]
-
-    ## trapezoidal rule code version 2
-    # k samples
-    dists_1 = torch.cat([torch.ones((dists.shape[0], 1)),dists],-1)[:,:-1]*10.
-    alpha_0 = torch.cat([torch.zeros((alpha.shape[0], 1, k3)),alpha],-2)[:,:-1,:]
-    a = torch.cumsum((alpha_0 + alpha) * dists_1[...,None], -2)
-    a = torch.cat([torch.zeros((a.shape[0],1,k3)),a],-2)[:,:-1,:]
-    weight = torch.exp(-0.5*a) * alpha # T1 # [N_rays, N_samples, k3]
-    part_1 = weight[...,None,:] * rgb
-    part_0 = torch.cat([torch.zeros((alpha.shape[0], 1, 3, k3)), part_1], -3)[:,:-1,:,:]
-    rgb_map = torch.sum(0.5*(part_1+part_0) * dists_1[...,None,None], -3)  # [N_rays, 3, k3]
-    # rgb_map = rgb_map.transpose(-2,-1) # [N_rays, K, 3]
-    
-    weights = weight * dists_1[...,None] # [N_rays, N_samples, k3]
-    depth_map = torch.sum(weights * z_vals[...,None], -2) # [N_rays, k3]
-    disp_map = 1./torch.max(1e-10 * torch.ones_like(depth_map) + 1e-10, depth_map / (torch.sum(weights, -2) + 1e-10) + 1e-10)
-    # in trapezoidal, weights are often bigger than 1, so need to normalize
-    # weight_for_acc = weight * dists_1[...,None]
-    # weights = weight_for_acc + 1e-5 # prevent nans
-    # weights_norm = weights / torch.sum(weights, -1, keepdim=True)
-    acc_map = torch.sum(weights, -2) # [N_rays, k3]
-
-    if white_bkgd:
-        rgb_map = rgb_map + (1.-acc_map[:,None,:])
-
-    return rgb_map, disp_map, weights, depth_map
-
-
 def raw2outputs(raw, z_vals, rays_d, raw_noise_std=0, white_bkgd=False, pytest=False):
     """Transforms model's predictions to semantically meaningful values.
     Args:
@@ -486,14 +432,9 @@ def raw2outputs(raw, z_vals, rays_d, raw_noise_std=0, white_bkgd=False, pytest=F
     raw2alpha = lambda raw, dists, act_fn=F.softplus: 1.-torch.exp(-act_fn(raw)*dists)
 
     dists = z_vals[...,1:] - z_vals[...,:-1]
-    # print('dist before max:',torch.max(dists[...,:-1]))
-    # print('dist before min:',torch.min(dists[...,:-1]))
     dists = torch.cat([dists, torch.Tensor([1e1]).expand(dists[...,:1].shape)], -1)  # [N_rays, N_samples]
 
     dists = dists * torch.norm(rays_d[...,None,:], dim=-1)
-
-    # print('norm before max:',torch.max(torch.norm(rays_d[...,None,:], dim=-1)))
-    # print('norm before min:',torch.min(torch.norm(rays_d[...,None,:], dim=-1)))
 
     rgb = torch.sigmoid(raw[...,:3])  # [N_rays, N_samples, K, 3]
     noise = 0.
@@ -505,12 +446,8 @@ def raw2outputs(raw, z_vals, rays_d, raw_noise_std=0, white_bkgd=False, pytest=F
             # np.random.seed(0)
             noise = np.random.rand(*list(raw[...,3].shape)) * raw_noise_std
             noise = torch.Tensor(noise)
-    
-    # print('dist max:',torch.max(dists[...,:-1]))
-    # print('dist min:',torch.min(dists[...,:-1]))
 
     alpha = raw2alpha(raw[...,3], dists[...,None])  # [N_rays, N_samples, K]
-    # weights = alpha * tf.math.cumprod(1.-alpha + 1e-10, -1, exclusive=True)
     weights = alpha * torch.cumprod(torch.cat([torch.ones((alpha.shape[0], 1, alpha.shape[-1])), 1.-alpha + 1e-10], -2), -2)[:, :-1, :] # [N_rays, N_samples, K]
     rgb_map = torch.sum(weights[...,None] * rgb, -3)  # [N_rays, K, 3]
     rgb_map = rgb_map.transpose(-1,-2) # [N_rays, 3, K]
@@ -579,9 +516,8 @@ def render_rays(ray_batch,
 
     ## original 
     # t_vals = torch.linspace(0., 1., steps=N_samples)
-    # sampleselection2
-    # t_vals = torch.cat([torch.linspace(0., 0.5, steps=97)[:-1],torch.linspace(0.5, 1., steps=32)],0)
-    t_vals = torch.cat([torch.linspace(0., 0.5, steps=193)[:-1],torch.linspace(0.5, 1., steps=64)],0)
+    # option 2 for LF dataset
+    t_vals = torch.cat([torch.linspace(0., 0.5, steps=97)[:-1],torch.linspace(0.5, 1., steps=32)],0)
     if not lindisp:
         z_vals = near * (1.-t_vals) + far * (t_vals)
     else:
@@ -607,7 +543,7 @@ def render_rays(ray_batch,
 
     pts0 = rays_o[...,None,:] + rays_d[...,None,:] * z_vals[...,:,None] # [N_rays, N_samples, 3]
 
-    ## coarse process
+    ## process
     is_test = not is_train
     raw, loss_entropy = network_query_fn(pts0, viewdirs, network_fn, is_val= False, is_test=is_test) # alpha_mean.shape (B,N,1)
 
@@ -821,117 +757,8 @@ def train(args):
         i_train = np.array([i for i in np.arange(int(images.shape[0])) if
                         (i not in i_test and i not in i_val)])
         
-
-        if args.dataname == 'fern':
-            ## fern v5
-            # i_all = list(np.arange(0,20))
-            # i_train = [3,4,5,6,15,16]
-            # i_val_internal = [13,14]
-            # i_val_external = np.array([i for i in i_all if (i not in i_train and i not in i_val_internal)])
-            # i_val = np.array([i for i in i_all if i not in i_train])
-
-            i_all = list(np.arange(0,20))
-            i_train = [0,4,15,19]
-            i_val_internal = [1,3,14,18]
-            i_val = [1,3,14,18]
-
-        elif args.dataname == 'horns':
-            # horn 9 images
-            i_all_1 = list(np.arange(0,28))
-            i_all_2 = list(np.arange(0,62))
-            i_train = [0,4,8,9,13,17,18,22,27]
-            i_val_internal = [14,15,16,20,21,23]
-            i_val_external = [37] + list(np.arange(46,61,2))
-            i_val = np.array([i for i in i_all_2 if i not in i_train])
-        
-            # horns 4 images
-            # i_train = [0,4,13,17]
-            # i_val_internal = [1,2,3,14,15,16]
-            # i_val = [1,2,3,14,15,16]
-
-        elif args.dataname == 'trex':
-            # # trex 9 images
-            # i_all = list(np.arange(0,55))
-            # i_all_0 = list(np.arange(0,24))
-            # # i_train = [0,3,7,8,11,15,16,19,23]
-            # i_train = list(np.arange(0,24))
-            # i_val_internal = [1,4,9,12,17,20,24]
-            # i_val_external = list(np.arange(31,55))
-            # i_val = np.array([i for i in i_all if i not in i_train])
-
-            # trex 4 images
-            i_train = [0,4,11,15]
-            i_val_internal = [1,2,3,12,13,14]
-            i_val = [1,2,3,12,13,14]
-
-        elif args.dataname == 'orchids':
-            # orchids 4 images v1
-            i_all = list(np.arange(0,25))
-            i_train = [0,2,10,12]
-            i_val = [1,8,9,11]
-            i_val_internal = [1,8,9,11]
-            i_val_external = np.array([i for i in i_val if i not in i_val_internal])
-
-            # i_all = list(np.arange(0,25))
-            # i_train = [0,2,8,9,10,12]
-            # i_val = np.array([i for i in i_all if i not in i_train])
-            # i_val_internal = [1,11]
-            # i_val_external = np.array([i for i in i_val if i not in i_val_internal])
-
-        elif args.dataname == 'leaves':
-            # leaves 6 images v2
-            # i_all = list(np.arange(0,26))
-            # i_all_0 = list(np.arange(0,10))
-            # i_train = [0,2,4,6,7,9]
-            # i_val_internal = [1,3,8]
-            # i_val_external = [10,12,15,17,19,20,22]
-            # i_val = np.array([i for i in i_all if i not in i_train])
-
-            # leaves 4 images v2
-            i_all = list(np.arange(0,26))
-            i_all_0 = list(np.arange(0,10))
-            i_train = [0,2,6,9]
-            i_val_internal = [1,3,7,8]
-            i_val = [1,3,7,8]
-
-        elif args.dataname == 'room':
-            # room 4 images v2
-            # i_all = list(np.arange(0,41))
-            # i_train = [5,7,10,11,13,16,17,19,22,23,26,28]
-            # i_val_external = [0,2,4]
-            # i_val = np.array([i for i in i_all if i not in i_train])
-
-            # room 4 images
-            i_all = list(np.arange(0,17))
-            i_train = [0,4,11,16]
-            i_val_internal = np.array([i for i in i_all if i not in i_train])
-            i_val = np.array([i for i in i_all if i not in i_train])
-
-        elif args.dataname == 'flower':
-            # # flower 4 images
-            i_all = list(np.arange(0,34))
-            # i_train = i_all
-            i_train = [0,4,30,33]
-            i_val_internal = [1,2,3,14,15,16,17,18,19,20,31,32]
-            # i_val_external = [7]
-            i_val_external = np.array([i for i in i_all if (i not in i_train and i not in i_val_internal)])
-            i_val = np.array([i for i in i_all if i not in i_train])
-        
-        elif args.dataname == 'fortress':
-            # flower 4 images
-            i_all = list(np.arange(0,41))
-            i_train = [0,3,21,23]
-            i_val_internal = [1,2,9,10,11,12,13,14,22]
-            i_val_external = [6,7,18,29,30,32,34,36]
-            i_val = np.array([i for i in i_all if i not in i_train])
-        
-        elif args.dataname == 'basket':
-            # 3 views
-            # i_all = list(np.arange(46,50))
-            # i_val_internal = [48]
-            # i_val = [48]
-            # i_train = np.array([i for i in i_all if i not in i_val])
-            # 5 views
+        if args.dataname == 'basket':
+            # 4 views
             i_train = list(np.arange(43,50,2))
             i_val = list(np.arange(44,50,2))
             i_val_internal = list(np.arange(44,50,2))
@@ -969,13 +796,6 @@ def train(args):
         images, poses, render_poses, hwf, i_split = load_blender_data(args.datadir, args.half_res, args.testskip)
         print('Loaded blender', images.shape, render_poses.shape, hwf, args.datadir)
         i_train, i_val, i_test = i_split
-
-        # scene: lego drums
-        # train on a portion of 100 training views drums
-        random.seed(10)
-        i_train = random.sample(list(i_train),20)
-        i_train = sorted(i_train)
-        i_val_internal = i_val
 
         near = 2.
         far = 6.
@@ -1266,12 +1086,6 @@ def train(args):
         for param_group in optimizer.param_groups:
             param_group['lr'] = new_lrate
 
-        ###   update depth_lambda  ###
-        if i == 20000:
-            decay_rate = 0.1
-            args.depth_lambda *= decay_rate
-            print('update depth_lambda:',args.depth_lambda)
-
         ################################
 
         dt = time.time()-time0
@@ -1418,92 +1232,11 @@ def test(args):
         i_train = np.array([i for i in np.arange(int(images.shape[0])) if
                         (i not in i_test and i not in i_val)])
         
-        if args.dataname == 'fern':
-            ## fern v5
-            # i_all = list(np.arange(0,20))
-            # i_train = [3,4,5,6,15,16]
-            # i_val_internal = [13,14]
-            # i_val_external = np.array([i for i in i_all if (i not in i_train and i not in i_val_internal)])
-            # i_val = np.array([i for i in i_all if i not in i_train])
-
-            i_all = list(np.arange(0,20))
-            i_train = [0,4,15,19]
-            i_val_internal = [1,3,14,18]
-            i_val = [1,3,14,18]
-
-        elif args.dataname == 'horns':
-            # horn 9 images
-            i_all_1 = list(np.arange(0,28))
-            i_all_2 = list(np.arange(0,62))
-            i_train = [0,4,8,9,13,17,18,22,27]
-            i_val_internal = [14,15,16,20,21,23]
-            i_val_external = [37] + list(np.arange(46,61,2))
-            i_val = np.array([i for i in i_all_2 if i not in i_train])
-
-        elif args.dataname == 'trex':
-            # # trex 9 images
-            # i_all = list(np.arange(0,55))
-            # i_all_0 = list(np.arange(0,24))
-            # # i_train = [0,3,7,8,11,15,16,19,23]
-            # i_train = list(np.arange(0,24))
-            # i_val_internal = [1,4,9,12,17,20,24]
-            # i_val_external = list(np.arange(31,55))
-            # i_val = np.array([i for i in i_all if i not in i_train])
-
-            # trex 4 images
-            i_train = [0,4,11,15]
-            i_val_internal = [1,2,3,14]
-            i_val = [1,2,3,14]
-
-        elif args.dataname == 'orchids':
-            # orchids 4 images v2
-            i_all = list(np.arange(0,25))
-            i_train = [0,2,10,12]
-            i_val = [1,8,9,11]
-            i_val_internal = [1,8,9,11]
-
-        elif args.dataname == 'leaves':
-            # leaves 4 images v2
-            i_all = list(np.arange(0,26))
-            i_all_0 = list(np.arange(0,10))
-            i_train = [0,2,6,9]
-            i_val_internal = [1,3,7,8]
-            i_val = [1,3,7,8]
-
-        elif args.dataname == 'room':
-            # room 4 images
-            i_all = list(np.arange(0,17))
-            i_train = [0,4,11,16]
-            i_val_internal = np.array([i for i in i_all if i not in i_train])
-            i_val = np.array([i for i in i_all if i not in i_train])
-
-        elif args.dataname == 'flower':
-            # flower 4 images
-            i_all = list(np.arange(0,34))
-            i_train = [0,4,30,33]
-            i_val_internal = [1,2,3,14,15,16,17,18,19,20,31,32]
-            i_val_external = np.array([i for i in i_all if (i not in i_train and i not in i_val_internal)])
-            i_val = np.array([i for i in i_all if i not in i_train])
-        
-        elif args.dataname == 'fortress':
-            # flower 4 images
-            i_all = list(np.arange(0,41))
-            i_train = [0,3,12,15,24,26]
-            # i_train = [0,2,4,8,9,11,12,14,16,19,21,23,24,26,28]
-            i_val_internal = [1,3,7,13,15,20,22,25,27]
-            i_val_external = [6,7,18,29,30,32,34,36]
-            i_val = np.array([i for i in i_all if i not in i_train])
-        
-        elif args.dataname == 'basket':
-            # 3 views
-            # i_all = list(np.arange(46,50))
-            # i_val_internal = [48]
-            # i_val = [48]
-            # i_train = np.array([i for i in i_all if i not in i_val])
-            # 5 views
-            i_train = list(np.arange(41,50,2))
-            i_val = list(np.arange(42,50,2))
-            i_val_internal = list(np.arange(42,50,2))
+        if args.dataname == 'basket':
+            # 4 views
+            i_train = list(np.arange(43,50,2))
+            i_val = list(np.arange(44,50,2))
+            i_val_internal = list(np.arange(44,50,2))
         
         elif args.dataname == 'africa':
             # 5 views
@@ -1540,17 +1273,6 @@ def test(args):
 
         near = 2.
         far = 6.
-
-        # # exp 1
-        # # sample from half part of the well aligned test views (180), lego, (200,225) + (275,325) + (375,399) 
-        # i_train = list(np.arange(200,225,5)) + list(np.arange(275,325,5)) + list(np.arange(375,399,5)) # 20
-        # i_val_external = list(np.arange(230,270,5)) + list(np.arange(330,370,5)) # 16
-
-        # exp 2
-        # sample from 30% part of the well aligned test views (108), lego, (235,265) + (335,365) 
-        i_train = list(np.arange(235,266,5)) + list(np.arange(335,366,5)) # 20
-        i_val_internal = list(np.arange(237,268,5)) + list(np.arange(337,368,5)) # 20
-        i_val_external = list(np.arange(200,216,5)) + list(np.arange(275,326,5)) + list(np.arange(375,399,5)) # 16
 
         if args.white_bkgd:
             images = images[...,:3]*images[...,-1:] + (1.-images[...,-1:])
@@ -2023,7 +1745,7 @@ def test(args):
         exit(1)
 
     # ############# convert to mesh using marching cubes ################
-    if 1:   
+    if 0:   
         #################### load model 
         # embedding_xyz = Embedding(3, 10)
         # embedding_dir = Embedding(3, 4)
@@ -2169,7 +1891,7 @@ def test(args):
         exit(1)
 
     # ############# write point cloud  ################
-    if 1:
+    if 0:
         print('i_val_internal:',i_val_internal)
         print('i_val_external:',i_val_external)
         i_test = i_val_internal + i_val_external
