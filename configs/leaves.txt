@@ -1,0 +1,10 @@
+dataname = leaves
+basedir = ./logs/NF
+datadir = ./data/nerf_llff_data/leaves
+dataset_type = llff
+
+factor = 8
+llffhold = 8
+
+use_viewdirs = True
+raw_noise_std = 1e0

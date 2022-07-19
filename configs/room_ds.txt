@@ -1,0 +1,13 @@
+dataname = room
+basedir = ./logs/NF
+datadir = ./data/nerf_llff_data/room
+dataset_type = llff
+
+factor = 8
+llffhold = 8
+
+use_viewdirs = True
+raw_noise_std = 1e0
+
+no_ndc = True
+colmap_depth = True
