@@ -67,12 +67,6 @@ To train CF-NeRF on different datasets:
 bash train_NF.sh # change the content there
 ```
 
-To test NeRF trained on different datasets: 
-
-```
-python test_NF.sh # change the content there
-```
-
 ### Pre-trained Models (Coming soon)
 
 ## License
