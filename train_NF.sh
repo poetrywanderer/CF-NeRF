@@ -1,8 +1,8 @@
 export CUDA_VISIBLE_DEVICES=6,7
 
 python run_nerf_uncertainty_NF.py \
-            --config configs/basket_ds.txt \
-            --expname 'basket' \
+            --config configs/africa_ds.txt \
+            --expname 'africa' \
             --N_rand 512 \
             --N_samples 128 \
             --n_flows 4 \

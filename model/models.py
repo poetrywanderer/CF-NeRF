@@ -41,9 +41,6 @@ class NeRF_Flows(nn.Module):
         ### Implementation according to the official code release (https://github.com/bmild/nerf/blob/master/run_nerf_helpers.py#L104-L105)
         self.views_linears = nn.ModuleList([nn.Linear(self.input_ch_views + self.W, self.W//2)])
 
-        # self.z_mean_val = torch.nn.Parameter(torch.zeros(self.z_size))
-        # self.z_std_val = torch.tensor(torch.ones(self.z_size)) * 10.
-
         self.alpha_mean = torch.nn.Parameter(torch.zeros(1))
         self.alpha_std = torch.nn.Parameter(torch.ones(1))
 
@@ -56,12 +53,6 @@ class NeRF_Flows(nn.Module):
         self.sample_size = args.K_samples
         self.sample_alpha = torch.empty([self.sample_size,1]).normal_()
         self.sample_rgb = torch.empty([self.sample_size,3]).normal_()
-
-        # self.sample_alpha = torch.from_numpy(np.array([-2,-2])).unsqueeze(-1)
-        # self.sample_alpha, _ = torch.empty([self.sample_size,1]).normal_().sort(0)
-        # self.sample_rgb = self.sample_alpha.expand([self.sample_size,3])
-        # self.sample_alpha = torch.cat([self.sample_alpha,self.sample_alpha.flip(0)],0)
-        # self.sample_rgb = torch.cat([self.sample_rgb,self.sample_rgb.flip(0)],0)
 
         if self.use_viewdirs:
             self.feature_linear = nn.Linear(self.W, self.W)

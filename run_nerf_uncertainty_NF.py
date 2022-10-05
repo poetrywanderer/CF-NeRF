@@ -132,14 +132,6 @@ def render(H, W, focal, chunk=1024*32, rays=None, c2w=None, ndc=True,
     else:
         # use provided ray batch
         rays_o, rays_d = rays
-    
-    visualize_distribution = False
-    if visualize_distribution:
-        print(rays_o.shape) # (H,W,3)
-        print(rays_d.shape) # (H,W,3)
-        # check random surface point
-        rays_o = rays_o[H//2,W//2,:]
-        rays_d = rays_d[H//2,W//2,:]
 
     if use_viewdirs:
         # provide ray directions as input
@@ -515,8 +507,6 @@ def render_rays(ray_batch,
     near, far = bounds[...,0], bounds[...,1] # [-1,1]
 
     ## original 
-    # t_vals = torch.linspace(0., 1., steps=N_samples)
-    # option 2 for LF dataset
     t_vals = torch.cat([torch.linspace(0., 0.5, steps=97)[:-1],torch.linspace(0.5, 1., steps=32)],0)
     if not lindisp:
         z_vals = near * (1.-t_vals) + far * (t_vals)
@@ -1214,5 +1204,3 @@ if __name__=='__main__':
     args = parser.parse_args()
     if args.is_train:
         train(args)
-    else:
-        test(args)   
