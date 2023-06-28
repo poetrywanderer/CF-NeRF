@@ -41,7 +41,7 @@ You will also need the [LLFF code](http://github.com/fyusion/llff) (and COLMAP) 
 
 ## Data
 
-Download the [LF datasets(official)](https://drive.google.com/file/d/1gsjDjkbTh4GAR9fFqlIDZ__qR9NYTURQ/view) [LF (used in the paper)](https://drive.google.com/drive/folders/1bmlNSFZ_eouQ-sQhw-o5B00WkadRiSpd?usp=sharing) and [LLFF datasets](https://drive.google.com/drive/folders/14boI-o5hGO9srnWaaogTU5_ji7wkX2S7). 
+Download the [LF datasets(official)](https://drive.google.com/file/d/1gsjDjkbTh4GAR9fFqlIDZ__qR9NYTURQ/view) or [LF (used in the paper)](https://drive.google.com/drive/folders/1bmlNSFZ_eouQ-sQhw-o5B00WkadRiSpd?usp=sharing), [LLFF datasets](https://drive.google.com/drive/folders/14boI-o5hGO9srnWaaogTU5_ji7wkX2S7). 
 
 ### Your Own data
 To play with other scenes, place your data according to the following directory structure:
