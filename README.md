@@ -15,7 +15,7 @@ A critical limitation of current methods based on Neural Radiance Fields (NeRF) 
 We recommend using Anaconda to set up the environment. Run the following commands:
 
 ```
-conda env create -f environment.yaml
+conda env create -f environment.yml
 conda activate cf_nerf
 git clone https://github.com/poetrywanderer/CF-NeRF.git
 cd CF-NeRF
