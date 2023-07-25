@@ -67,7 +67,9 @@ To train CF-NeRF on different datasets:
 bash train_NF.sh # change the content there
 ```
 
-### Pre-trained Models (Coming soon)
+### Pre-trained Models
+
+We will gradually release the [pretrained models](https://drive.google.com/drive/folders/1B5qcHo3fBJ0RIAybGBXcvEfm-ETsErSh?usp=sharing) so that you can play with.  
 
 ## License
 
